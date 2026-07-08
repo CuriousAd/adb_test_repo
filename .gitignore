@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+mydatabase
+node_modules/
+.eslintcache
+src/db/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

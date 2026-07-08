@@ -6,22 +6,11 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get -y update
 RUN apt-get install -y curl nano wget nginx git
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
-
-# Mongo
-RUN ln -s /bin/echo /bin/systemctl
-RUN wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
-RUN echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-RUN apt-get -y update
-RUN apt-get install -y mongodb-org
-
-# Install Yarn
-RUN apt-get install -y yarn
-
-# Install PIP
-RUN easy_install pip
+# Node.js 16 + Yarn
+RUN curl -fsSL https://nodejs.org/dist/v16.20.2/node-v16.20.2-linux-x64.tar.xz -o /tmp/node.tar.xz \
+    && tar -xf /tmp/node.tar.xz -C /usr/local --strip-components=1 \
+    && rm /tmp/node.tar.xz
+RUN npm install -g yarn
 
 
 ENV ENV_TYPE staging
